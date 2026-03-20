@@ -1,0 +1,24 @@
+"sector","mean_roa","sd_roa","n_obs"
+"Accommodation and Food Services",0.0159,0.0319,1920
+"Administrative and Support and Waste Management Services",0.01026,0.02996,2159
+"Agriculture, Forestry, Fishing and Hunting",0.01433,0.02936,180
+"Arts, Entertainment, and Recreation",0.00629,0.03286,540
+"Construction",0.00944,0.0307,1736
+"Construction (NAICS 5)",0.0042,0.03669,240
+"Educational Services",0.01614,0.03161,540
+"Finance and Insurance",0.00584,0.01776,24298
+"Health Care and Social Assistance",0.00917,0.02836,1620
+"Information",0.00032,0.05464,7435
+"Manufacturing",-0.01198,0.07817,40420
+"Mining (NAICS 2)",0.0042,0.02732,1260
+"Mining, Quarrying, and Oil and Gas Extraction",-0.00228,0.05922,2038
+"Nonclassifiable Establishments",0.00057,0.05462,360
+"Other Services (except Public Administration)",0.00949,0.03351,300
+"Professional, Scientific, and Technical Services",-0.00211,0.06077,3239
+"Real Estate and Rental and Leasing",0.01434,0.04145,7753
+"Retail Trade",0.01366,0.03774,4499
+"Transportation and Warehousing",0.0153,0.01865,2339
+"Unclassified / Not Available",0.00577,0.04212,5933
+"Utilities",0.00337,0.02272,1380
+"Utilities (NAICS 3)",0.01707,0.01726,780
+"Wholesale Trade",0.01195,0.0218,3060

@@ -1,0 +1,162 @@
+================================================================================
+  CHRONOS TUTORIAL — DEPLOYMENT & SHARING GUIDE
+  Generated: March 19, 2026
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 1: SHARING WITH COLLEAGUES FOR REVIEW
+────────────────────────────────────────────────────────────────────────────────
+
+OPTION A: Deploy to Railway First (RECOMMENDED — Zero effort for colleagues)
+─────────────────────────────────────────────────────────────────────────────
+Railway gives you a free public URL (e.g., chronos-tutorial-production.up.railway.app)
+the moment you deploy. Share that link — colleagues just click it, no installation.
+Later, point your custom domain at it. See Section 2 for full Railway steps.
+
+OPTION B: ngrok (Share Locally Without Deploying)
+────────────────────────────────────────────────────
+Use this if you want colleagues to review while you're still making changes
+and not ready to deploy. Requires your Mac to stay open while they review.
+
+  Step 1 — Install ngrok (one-time):
+    brew install ngrok
+
+  Step 2 — Start your local server (if not already running):
+    cd /path/to/chronos-tutorial
+    source venv/bin/activate
+    python server.py
+
+  Step 3 — In a second Terminal tab, run:
+    ngrok http 8080
+
+  Step 4 — ngrok prints a URL like: https://a3b9-12-34-56.ngrok.io
+    Share this URL with colleagues. It works from any browser, anywhere.
+
+  NOTES:
+  - The URL expires when you close the ngrok Terminal tab.
+  - Free ngrok tier shows a brief interstitial page before the app loads.
+  - Colleagues need ZERO installation — just a browser.
+
+OPTION C: ZIP + Setup Script (If Colleague Wants Their Own Local Copy)
+────────────────────────────────────────────────────────────────────────
+Use this only if a colleague wants to modify or run the app themselves.
+Requires: Python 3.10+ installed on their machine.
+
+  Step 1 — Zip the project folder (exclude venv):
+    zip -r chronos-tutorial.zip chronos-tutorial/ --exclude "*/venv/*"
+
+  Step 2 — Colleague unzips and runs:
+    cd chronos-tutorial
+    python3 -m venv venv
+    source venv/bin/activate        # Mac/Linux
+    pip install -r requirements.txt
+    python server.py
+    # Browser opens automatically at http://localhost:8080
+
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 2: DEPLOYING TO RAILWAY → smartfaculty.ai
+────────────────────────────────────────────────────────────────────────────────
+
+Files already configured for Railway (created March 19, 2026):
+  ✓ Procfile         — gunicorn launch command
+  ✓ railway.toml     — build/deploy settings
+  ✓ .gitignore       — excludes venv, cache, .DS_Store
+  ✓ requirements.txt — includes gunicorn>=21.2
+  ✓ server.py        — reads PORT from environment variable
+
+STEP 1 — Push project to GitHub
+────────────────────────────────
+  cd /path/to/chronos-tutorial
+  git init
+  git add .
+  git commit -m "Initial Railway deploy"
+
+  Then on github.com:
+  - Click "New Repository" → name it (e.g., chronos-tutorial) → Create
+  - Copy the two "push an existing repo" commands and run them in Terminal
+
+STEP 2 — Connect Railway
+──────────────────────────
+  1. Go to https://railway.app
+  2. Sign in (use GitHub account for easiest integration)
+  3. New Project → Deploy from GitHub repo → select your repo
+  4. Railway auto-detects Python, runs: pip install -r requirements.txt
+  5. Build takes ~2–3 minutes (numpy/statsmodels compilation)
+  6. Once live, Railway gives you a URL like:
+       https://chronos-tutorial-production.up.railway.app
+  7. THIS URL is shareable immediately — use it for colleague review.
+
+STEP 3 — Upgrade to Hobby Plan (~$5/mo)
+─────────────────────────────────────────
+  - Free tier: app sleeps after 15 min of inactivity (cold start on next visit)
+  - Hobby tier ($5/mo): always-on, no sleep, better for sharing
+  - Go to Railway Settings → Billing → Upgrade
+
+STEP 4 — Add Custom Domain (chronos.smartfaculty.ai)
+──────────────────────────────────────────────────────
+  In Railway:
+  1. Go to your project → Settings → Networking → Add Custom Domain
+  2. Type: chronos.smartfaculty.ai (or any subdomain you prefer)
+  3. Railway shows a CNAME target like: abc123.railway.app
+
+  In your domain registrar (wherever smartfaculty.ai is registered):
+  1. Add a DNS record:
+       Type:  CNAME
+       Name:  chronos
+       Value: abc123.railway.app  (use the exact value Railway gives you)
+  2. Save. DNS propagates in 5–30 minutes.
+  3. Railway auto-provisions SSL (HTTPS). No extra setup needed.
+
+RESULT: https://chronos.smartfaculty.ai is live and fully functional.
+
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 3: UPDATING THE APP AFTER DEPLOY
+────────────────────────────────────────────────────────────────────────────────
+
+After initial deploy, every future update is simply:
+  git add .
+  git commit -m "describe your change"
+  git push
+
+Railway auto-detects the push and redeploys within ~1 minute.
+No manual steps needed — it's fully continuous deployment.
+
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 4: RUNNING LOCALLY (for development)
+────────────────────────────────────────────────────────────────────────────────
+
+  cd /path/to/chronos-tutorial
+  source venv/bin/activate
+  python server.py
+  # Opens http://localhost:8080 automatically
+
+  To stop: Ctrl+C
+
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 5: WHAT THE APP REQUIRES (Tech Stack)
+────────────────────────────────────────────────────────────────────────────────
+
+Backend (Python):
+  - Flask 3.0+          — web server
+  - flask-cors 4.0+     — cross-origin support
+  - pandas 2.0+         — data loading and manipulation
+  - numpy 1.26+         — numerical computation
+  - statsmodels 0.14+   — ARIMA, ADF, KPSS, Ljung-Box, BDS tests
+  - scipy 1.11+         — statistical distributions
+  - gunicorn 21.2+      — production WSGI server (Railway)
+
+Frontend (runs in browser, no install):
+  - Vanilla HTML/CSS/JavaScript
+  - Chart.js (loaded via CDN)
+
+Data:
+  - data/tutorial_sample_data.csv  — Compustat WRDS panel data
+    (loaded once at startup, serves all API requests)
+
+================================================================================
+END OF GUIDE
+================================================================================

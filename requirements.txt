@@ -1,0 +1,7 @@
+flask>=3.0
+flask-cors>=4.0
+pandas>=2.0
+numpy>=1.26
+statsmodels>=0.14
+scipy>=1.11
+gunicorn>=21.2

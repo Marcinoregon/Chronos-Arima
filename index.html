@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forecasting Nonlinear Firm Performance | Interactive Tutorial</title>
+  <meta name="description" content="An interactive undergraduate tutorial comparing ARIMA and Amazon Chronos-Bolt for forecasting firm performance — with real Compustat data."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─────────────────────────────────────────────────── -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-badge">ChronOS</div>
+    <p class="logo-sub">AI vs. ARIMA<br>Forecasting Tournament</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Course Progress</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div id="progress-fill"></div></div>
+  </div>
+
+  <ul class="nav-list" id="nav-list">
+    <li class="nav-item active" data-module="0">
+      <span class="nav-dot"></span>
+      <span class="nav-text">Overview</span>
+    </li>
+    <li class="nav-item" data-module="1">
+      <span class="nav-dot"></span>
+      <span class="nav-text">Module 1 — Theory & Data Dictionary</span>
+    </li>
+    <li class="nav-item" data-module="2">
+      <span class="nav-dot"></span>
+      <span class="nav-text">Module 2 — Data Acquisition</span>
+    </li>
+    <li class="nav-item" data-module="3">
+      <span class="nav-dot"></span>
+      <span class="nav-text">Module 3 — ARIMA Deep Dive</span>
+    </li>
+    <li class="nav-item" data-module="4">
+      <span class="nav-dot"></span>
+      <span class="nav-text">Module 4 — Chronos AI</span>
+    </li>
+    <li class="nav-item" data-module="5">
+      <span class="nav-dot"></span>
+      <span class="nav-text">Module 5 — Hypothesis Testing</span>
+    </li>
+    <li class="nav-item" data-module="6">
+      <span class="nav-dot"></span>
+      <span class="nav-text">📊 Live Data Explorer</span>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="data-badge">🔬 Real Compustat Data<br><span>114,029 firm-quarters</span></div>
+  </div>
+</nav>
+
+<!-- ─── MAIN CONTENT ─────────────────────────────────────────────── -->
+<main id="main-content">
+  <div id="content-area"></div>
+
+  <!-- MODULE NAV BUTTONS -->
+  <div class="module-nav">
+    <button id="btn-prev" onclick="changeModule(-1)">← Previous</button>
+    <span id="module-indicator">Module 0 / 6</span>
+    <button id="btn-next" onclick="changeModule(1)">Next →</button>
+  </div>
+</main>
+
+<!-- ─── QUIZ MODAL ────────────────────────────────────────────────── -->
+<div id="quiz-modal" class="modal hidden">
+  <div class="modal-backdrop" onclick="closeQuiz()"></div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeQuiz()">✕</button>
+    <div id="quiz-content"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script src="app2.js"></script>
+<script src="app3.js"></script>
+<script src="app4.js"></script>
+<script src="app_data.js"></script>
+<script src="app_m1.js"></script>
+<script src="app_m2.js"></script>
+</body>
+</html>
+
