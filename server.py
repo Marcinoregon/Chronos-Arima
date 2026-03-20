@@ -25,6 +25,12 @@ PORT = int(os.environ.get('PORT', 8080))
 app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 CORS(app)
 
+# Allow iframe embedding from any origin (for Lovable site integration)
+@app.after_request
+def allow_iframe(response):
+    response.headers.pop('X-Frame-Options', None)
+    return response
+
 # ── DATA (loaded once at startup) ──────────────────────────────────
 print("Loading WRDS data…", end=' ', flush=True)
 try:
